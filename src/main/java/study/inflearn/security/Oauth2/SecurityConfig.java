@@ -24,7 +24,6 @@ public class SecurityConfig {
             }
         });
         */
-
         http.cors().configurationSource(corsConfigurationSource());
         return http.build();
     }

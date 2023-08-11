@@ -17,7 +17,7 @@ public class IndexController {
     @GetMapping("/")
     public String index() {
 
-        ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId("keycloakManual");
+        ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId("keycloak");
         log.info(clientRegistration.getClientId());
         log.info(clientRegistration.getClientSecret());
 

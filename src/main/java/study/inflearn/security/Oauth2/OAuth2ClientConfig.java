@@ -15,7 +15,7 @@ public class OAuth2ClientConfig {
         httpSecurity.authorizeRequests(authRequest -> authRequest
                 //.antMatchers("/loginPage")
                 //.permitAll()
-                .anyRequest().authenticated());
+                .anyRequest().permitAll());
         httpSecurity.oauth2Login(Customizer.withDefaults());
         //httpSecurity.oauth2Login(oauth2 -> oauth2.loginPage("/loginPage"));
         return httpSecurity.build();

@@ -13,7 +13,7 @@ spring:
             redirectUri: http://localhost:8081/login/oauth2/code/keycloak
             authorizationGrantType: authorization_code
             clientAuthenticationMethod: client_secret_basic
-            scope: profile,email
+            scope: openid, profile,email
 
         provider:
           keycloak:

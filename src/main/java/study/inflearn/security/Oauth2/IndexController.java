@@ -2,6 +2,10 @@ package study.inflearn.security.Oauth2;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -69,6 +73,20 @@ public class IndexController {
         OidcUser oidcUser = oidcUserService.loadUser(request);
 
         return oidcUser;
+    }
+
+    @GetMapping("/authentication")
+    public OAuth2User authenticationUser(Authentication authentication) {
+
+        //OAuth2AuthenticationToken authentication1 = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        //OAuth2AuthenticationToken authentication2 = (OAuth2AuthenticationToken) authentication;
+
+        return (OAuth2User) authentication.getPrincipal();
+    }
+
+    @GetMapping("/authenticationPrincipal")
+    public OAuth2User authenticationUser(@AuthenticationPrincipal OAuth2User principal) {
+        return principal;
     }
 }
 

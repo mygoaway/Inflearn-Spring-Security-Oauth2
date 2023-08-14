@@ -10,10 +10,10 @@ spring:
             clientId: oauth2-client-app
             clientSecret: TCUwfHOUaTMdovquaEOeG8H4pZah7X6q
             clientName: oauth2-client-app
-            redirectUri: http://localhost:8081/login/oauth2/code/keycloak
+            redirectUri: http://localhost:8081/login/oauth2/code/keycloak # 리다이렉트 url 수정해줘야함, 인가서버 동기화 필요
             authorizationGrantType: authorization_code
             clientAuthenticationMethod: client_secret_basic
-            scope: openid, profile,email
+            scope: profile,email
 
         provider:
           keycloak:

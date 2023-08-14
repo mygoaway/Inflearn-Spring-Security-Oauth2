@@ -18,28 +18,16 @@ public class OAuth2ClientConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests().anyRequest().authenticated();
-        //httpSecurity.authorizeRequests(authRequest -> authRequest
-                //.antMatchers("/loginPage")
-                //.permitAll()
-        //        .anyRequest().permitAll());
-        httpSecurity.oauth2Login(Customizer.withDefaults());
-        //httpSecurity.oauth2Login(oauth2 -> oauth2.loginPage("/loginPage"));
+        httpSecurity.authorizeRequests(request -> request.antMatchers("/login").permitAll()
+                .anyRequest().authenticated());
+        httpSecurity.oauth2Login(oauth2 -> oauth2.loginPage("/login")
+                //.loginProcessingUrl("/login/v1/oauth2/code")
+                .authorizationEndpoint(authorizationEndpointConfig ->
+                        authorizationEndpointConfig.baseUri("/oauth2/v1/authorization"))
+                .redirectionEndpoint(redirectionEndpointConfig ->
+                        redirectionEndpointConfig.baseUri("/login/v1/oauth2/code"))); // 인가서버 redirect 수정해야함
 
-        httpSecurity.logout()
-                .logoutSuccessHandler(oidcLogoutSuccessHandler())
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .deleteCookies("JESSIONID");
 
         return httpSecurity.build();
-    }
-
-    private LogoutSuccessHandler oidcLogoutSuccessHandler() {
-        OidcClientInitiatedLogoutSuccessHandler successHandler =
-                new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
-
-        successHandler.setPostLogoutRedirectUri("http://localhost:8081/login");
-        return successHandler;
     }
 }

@@ -30,6 +30,11 @@ public class IndexController {
 
     private final ClientRegistrationRepository clientRegistrationRepository;
 
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
+
     @GetMapping("/")
     public String index() {
         ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId("keycloak");
